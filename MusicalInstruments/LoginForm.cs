@@ -36,13 +36,9 @@ namespace MusicalInstruments
             }
         }
 
-        private void txtLogin_TextChanged (object sender, EventArgs e)
+        private void btnOK_Click (object sender, EventArgs e)
         {
             this.login = txtLogin.Text;
-        }
-
-        private void txtPassword_TextChanged (object sender, EventArgs e)
-        {
             this.password = txtPassword.Text;
         }
     }

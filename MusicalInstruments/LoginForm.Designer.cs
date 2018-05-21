@@ -53,7 +53,7 @@
             this.txtLogin.Name = "txtLogin";
             this.txtLogin.Size = new System.Drawing.Size(398, 20);
             this.txtLogin.TabIndex = 1;
-            this.txtLogin.TextChanged += new System.EventHandler(this.txtLogin_TextChanged);
+            this.txtLogin.Text = "SYSDBA";
             // 
             // label2
             // 
@@ -73,7 +73,7 @@
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(398, 20);
             this.txtPassword.TabIndex = 3;
-            this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
+            this.txtPassword.Text = "masterkey";
             // 
             // btnCancel
             // 
@@ -94,6 +94,7 @@
             this.btnOK.TabIndex = 5;
             this.btnOK.Text = "Вход";
             this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // LoginForm
             // 

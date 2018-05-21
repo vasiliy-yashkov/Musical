@@ -17,6 +17,8 @@ namespace MusicalInstruments
 {
     public partial class MainForm : Form
     {
+        private User user;
+
         public MainForm(string login, string password)
         {
             InitializeComponent();
@@ -58,7 +60,12 @@ namespace MusicalInstruments
             }
 
             if (onClosing)
-                Close();    
+                Close();
+
+            user = new User();
+
+            user.Login = login;
+            user.Password = password;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -202,6 +209,18 @@ namespace MusicalInstruments
             }
             acc.MdiParent = this;
             acc.Show();
+        }
+
+        private void userManagementToolStripMenuItem_Click (object sender, EventArgs e)
+        {
+            UserManagment users = new UserManagment();
+            foreach (Form form in this.MdiChildren)
+            {
+                if (form.GetType() == typeof(UserManagment))
+                    users = (UserManagment)form;
+            }
+            users.MdiParent = this;
+            users.Show();
         }
     }
 }

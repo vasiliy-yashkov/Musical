@@ -50,6 +50,8 @@
             this.tunerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.connectionLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.usersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.userManagementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -61,7 +63,8 @@
             this.objectsToolStripMenuItem,
             this.controlToolStripMenuItem,
             this.reportsToolStripMenuItem,
-            this.instrumentsSettingsToolStripMenuItem});
+            this.instrumentsSettingsToolStripMenuItem,
+            this.usersToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(704, 24);
@@ -232,6 +235,21 @@
             this.connectionLabel.Size = new System.Drawing.Size(62, 17);
             this.connectionLabel.Text = "Статус:";
             // 
+            // usersToolStripMenuItem
+            // 
+            this.usersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.userManagementToolStripMenuItem});
+            this.usersToolStripMenuItem.Name = "usersToolStripMenuItem";
+            this.usersToolStripMenuItem.Size = new System.Drawing.Size(97, 20);
+            this.usersToolStripMenuItem.Text = "Пользователи";
+            // 
+            // userManagementToolStripMenuItem
+            // 
+            this.userManagementToolStripMenuItem.Name = "userManagementToolStripMenuItem";
+            this.userManagementToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.userManagementToolStripMenuItem.Text = "Управление пользователями";
+            this.userManagementToolStripMenuItem.Click += new System.EventHandler(this.userManagementToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -278,6 +296,8 @@
         private System.Windows.Forms.ToolStripMenuItem instrumentsSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tunerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem accessoriesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem usersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem userManagementToolStripMenuItem;
     }
 }
 
