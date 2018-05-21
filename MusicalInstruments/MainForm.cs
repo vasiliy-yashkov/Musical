@@ -17,7 +17,7 @@ namespace MusicalInstruments
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        public MainForm(string login, string password)
         {
             InitializeComponent();
 
@@ -25,21 +25,21 @@ namespace MusicalInstruments
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             var connectionStringsSection = (ConnectionStringsSection)config.GetSection("connectionStrings");
             string appPath = Application.StartupPath;
-            string user = "SYSDBA";
-            string password = "masterkey";
             string dbPath = appPath + "\\db\\MUS_DB.FDB";
-            string connString = "database=" + dbPath + ";data source=localhost;user=" + user + ";password=" + password;
+            string connString = "database=" + dbPath + ";data source=localhost;user=" + login + ";password=" + password;
             connectionStringsSection.ConnectionStrings["MusicalInstruments.Properties.Settings.ConnectionString"].ConnectionString =
                 connString;
             config.Save();
             ConfigurationManager.RefreshSection("connectionStrings");
+
+            bool onClosing = false;
 
             FbConnection connection = new FbConnection(connString);
             try
             {
                 connection.Open();
                 connection.Close();
-                connectionLabel.Text = "Статус: " + dbPath + "; Пользователь: " + user;
+                connectionLabel.Text = "Статус: " + dbPath + "; Пользователь: " + login;
                 this.connectionLabel.Image = global::MusicalInstruments.Properties.Resources.ok;
                 objectsToolStripMenuItem.Enabled = true;
                 controlToolStripMenuItem.Enabled = true;
@@ -53,7 +53,12 @@ namespace MusicalInstruments
                 objectsToolStripMenuItem.Enabled = false;
                 controlToolStripMenuItem.Enabled = false;
                 reportsToolStripMenuItem.Enabled = false;
-            }          
+
+                onClosing = true;
+            }
+
+            if (onClosing)
+                Close();    
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

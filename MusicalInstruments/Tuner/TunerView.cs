@@ -11,9 +11,6 @@ namespace GuitarTuner
         private TunerController controller;
         private List<Label> stringLabels;
 
-        int x = 0;
-        double y = 0;
-
         public TunerView ()
         {
             InitializeComponent();
@@ -46,7 +43,6 @@ namespace GuitarTuner
         {
             controller.StopDetecting();
             RefreschChart();
-            x = 0;
 
             buttonStopMonitoring.Enabled = false;
             buttonStartMonitoring.Enabled = true;

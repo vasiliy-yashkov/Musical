@@ -18,7 +18,7 @@ namespace MusicalInstruments
         public SaleReports()
         {
             InitializeComponent();
-            
+
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             var connectionStringsSection = (ConnectionStringsSection)config.GetSection("connectionStrings");
             string appPath = Application.StartupPath;

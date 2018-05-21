@@ -16,7 +16,13 @@ namespace MusicalInstruments
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+
+            LoginForm loginForm = new LoginForm();
+
+            if (loginForm.ShowDialog() == DialogResult.OK)
+            {
+                Application.Run(new MainForm(loginForm.Login, loginForm.Password));
+            }
         }
     }
 }
