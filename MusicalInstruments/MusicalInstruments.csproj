@@ -254,7 +254,10 @@
     <EmbeddedResource Include="Marks.resx">
       <DependentUpon>Marks.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MessageBoxWithDetails.resx" />
+    <EmbeddedResource Include="MessageBoxWithDetails.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MessageBoxWithDetails1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -3787,6 +3787,8 @@ namespace MusicalInstruments {
             
             private global::System.Data.DataColumn columnR_NAME;
             
+            private global::System.Data.DataColumn columnR_TITLE;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public M_ROLESDataTable() {
@@ -3838,6 +3840,14 @@ namespace MusicalInstruments {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn R_TITLEColumn {
+                get {
+                    return this.columnR_TITLE;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -3873,11 +3883,12 @@ namespace MusicalInstruments {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public M_ROLESRow AddM_ROLESRow(long R_ID, string R_NAME) {
+            public M_ROLESRow AddM_ROLESRow(long R_ID, string R_NAME, string R_TITLE) {
                 M_ROLESRow rowM_ROLESRow = ((M_ROLESRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         R_ID,
-                        R_NAME};
+                        R_NAME,
+                        R_TITLE};
                 rowM_ROLESRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowM_ROLESRow);
                 return rowM_ROLESRow;
@@ -3909,6 +3920,7 @@ namespace MusicalInstruments {
             internal void InitVars() {
                 this.columnR_ID = base.Columns["R_ID"];
                 this.columnR_NAME = base.Columns["R_NAME"];
+                this.columnR_TITLE = base.Columns["R_TITLE"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3918,12 +3930,15 @@ namespace MusicalInstruments {
                 base.Columns.Add(this.columnR_ID);
                 this.columnR_NAME = new global::System.Data.DataColumn("R_NAME", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnR_NAME);
+                this.columnR_TITLE = new global::System.Data.DataColumn("R_TITLE", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnR_TITLE);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnR_ID}, true));
                 this.columnR_ID.AllowDBNull = false;
                 this.columnR_ID.Unique = true;
                 this.columnR_NAME.AllowDBNull = false;
                 this.columnR_NAME.MaxLength = 1000;
+                this.columnR_TITLE.MaxLength = 1000;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5524,6 +5539,34 @@ namespace MusicalInstruments {
                 set {
                     this[this.tableM_ROLES.R_NAMEColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string R_TITLE {
+                get {
+                    try {
+                        return ((string)(this[this.tableM_ROLES.R_TITLEColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'R_TITLE\' in table \'M_ROLES\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableM_ROLES.R_TITLEColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsR_TITLENull() {
+                return this.IsNull(this.tableM_ROLES.R_TITLEColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetR_TITLENull() {
+                this[this.tableM_ROLES.R_TITLEColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11107,11 +11150,13 @@ WHERE        (ID = @Original_ID) AND (""DATE"" = @Original_DATE) AND (@IsNull_IN
             tableMapping.DataSetTable = "M_ROLES";
             tableMapping.ColumnMappings.Add("R_ID", "R_ID");
             tableMapping.ColumnMappings.Add("R_NAME", "R_NAME");
+            tableMapping.ColumnMappings.Add("R_TITLE", "R_TITLE");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::FirebirdSql.Data.FirebirdClient.FbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
             this._adapter.DeleteCommand.CommandText = "DELETE FROM \"M_ROLES\" WHERE ((\"R_ID\" = @Original_R_ID) AND (\"R_NAME\" = @Original_" +
-                "R_NAME))";
+                "R_NAME) AND ((@IsNull_R_TITLE = 1 AND \"R_TITLE\" IS NULL) OR (\"R_TITLE\" = @Origin" +
+                "al_R_TITLE)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             global::FirebirdSql.Data.FirebirdClient.FbParameter param = new global::FirebirdSql.Data.FirebirdClient.FbParameter();
             param.ParameterName = "@Original_R_ID";
@@ -11128,9 +11173,26 @@ WHERE        (ID = @Original_ID) AND (""DATE"" = @Original_DATE) AND (@IsNull_IN
             param.SourceColumn = "R_NAME";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::FirebirdSql.Data.FirebirdClient.FbParameter();
+            param.ParameterName = "@IsNull_R_TITLE";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.Size = 1000;
+            param.IsNullable = true;
+            param.SourceColumn = "R_TITLE";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::FirebirdSql.Data.FirebirdClient.FbParameter();
+            param.ParameterName = "@Original_R_TITLE";
+            param.Size = 1000;
+            param.IsNullable = true;
+            param.SourceColumn = "R_TITLE";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
             this._adapter.InsertCommand = new global::FirebirdSql.Data.FirebirdClient.FbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO \"M_ROLES\" (\"R_ID\", \"R_NAME\") VALUES (@R_ID, @R_NAME)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO \"M_ROLES\" (\"R_ID\", \"R_NAME\", \"R_TITLE\") VALUES (@R_ID, @R_NAME, @R_TI" +
+                "TLE)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::FirebirdSql.Data.FirebirdClient.FbParameter();
             param.ParameterName = "@R_ID";
@@ -11145,10 +11207,17 @@ WHERE        (ID = @Original_ID) AND (""DATE"" = @Original_DATE) AND (@IsNull_IN
             param.IsNullable = true;
             param.SourceColumn = "R_NAME";
             this._adapter.InsertCommand.Parameters.Add(param);
+            param = new global::FirebirdSql.Data.FirebirdClient.FbParameter();
+            param.ParameterName = "@R_TITLE";
+            param.Size = 1000;
+            param.IsNullable = true;
+            param.SourceColumn = "R_TITLE";
+            this._adapter.InsertCommand.Parameters.Add(param);
             this._adapter.UpdateCommand = new global::FirebirdSql.Data.FirebirdClient.FbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE \"M_ROLES\" SET \"R_ID\" = @R_ID, \"R_NAME\" = @R_NAME WHERE ((\"R_ID\" = @Origina" +
-                "l_R_ID) AND (\"R_NAME\" = @Original_R_NAME))";
+            this._adapter.UpdateCommand.CommandText = "UPDATE \"M_ROLES\" SET \"R_ID\" = @R_ID, \"R_NAME\" = @R_NAME, \"R_TITLE\" = @R_TITLE WHE" +
+                "RE ((\"R_ID\" = @Original_R_ID) AND (\"R_NAME\" = @Original_R_NAME) AND ((@IsNull_R_" +
+                "TITLE = 1 AND \"R_TITLE\" IS NULL) OR (\"R_TITLE\" = @Original_R_TITLE)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::FirebirdSql.Data.FirebirdClient.FbParameter();
             param.ParameterName = "@R_ID";
@@ -11162,6 +11231,12 @@ WHERE        (ID = @Original_ID) AND (""DATE"" = @Original_DATE) AND (@IsNull_IN
             param.Size = 1000;
             param.IsNullable = true;
             param.SourceColumn = "R_NAME";
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::FirebirdSql.Data.FirebirdClient.FbParameter();
+            param.ParameterName = "@R_TITLE";
+            param.Size = 1000;
+            param.IsNullable = true;
+            param.SourceColumn = "R_TITLE";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::FirebirdSql.Data.FirebirdClient.FbParameter();
             param.ParameterName = "@Original_R_ID";
@@ -11178,6 +11253,22 @@ WHERE        (ID = @Original_ID) AND (""DATE"" = @Original_DATE) AND (@IsNull_IN
             param.SourceColumn = "R_NAME";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::FirebirdSql.Data.FirebirdClient.FbParameter();
+            param.ParameterName = "@IsNull_R_TITLE";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.Size = 1000;
+            param.IsNullable = true;
+            param.SourceColumn = "R_TITLE";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::FirebirdSql.Data.FirebirdClient.FbParameter();
+            param.ParameterName = "@Original_R_TITLE";
+            param.Size = 1000;
+            param.IsNullable = true;
+            param.SourceColumn = "R_TITLE";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11190,11 +11281,22 @@ WHERE        (ID = @Original_ID) AND (""DATE"" = @Original_DATE) AND (@IsNull_IN
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::FirebirdSql.Data.FirebirdClient.FbCommand[1];
+            this._commandCollection = new global::FirebirdSql.Data.FirebirdClient.FbCommand[2];
             this._commandCollection[0] = new global::FirebirdSql.Data.FirebirdClient.FbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT \"R_ID\", \"R_NAME\" FROM \"M_ROLES\"";
+            this._commandCollection[0].CommandText = "SELECT R_ID, R_NAME, R_TITLE FROM M_ROLES";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::FirebirdSql.Data.FirebirdClient.FbCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT R_ID, R_NAME, R_TITLE FROM M_ROLES WHERE (R_ID = @R_ID)";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            global::FirebirdSql.Data.FirebirdClient.FbParameter param = new global::FirebirdSql.Data.FirebirdClient.FbParameter();
+            param.ParameterName = "@R_ID";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.Size = 8;
+            param.IsNullable = true;
+            param.SourceColumn = "R_ID";
+            this._commandCollection[1].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11216,6 +11318,18 @@ WHERE        (ID = @Original_ID) AND (""DATE"" = @Original_DATE) AND (@IsNull_IN
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual MusDataSet.M_ROLESDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            MusDataSet.M_ROLESDataTable dataTable = new MusDataSet.M_ROLESDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual MusDataSet.M_ROLESDataTable GetDataByID(int R_ID) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(R_ID));
             MusDataSet.M_ROLESDataTable dataTable = new MusDataSet.M_ROLESDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -11254,13 +11368,21 @@ WHERE        (ID = @Original_ID) AND (""DATE"" = @Original_DATE) AND (@IsNull_IN
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(long Original_R_ID, string Original_R_NAME) {
+        public virtual int Delete(long Original_R_ID, string Original_R_NAME, string Original_R_TITLE) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((long)(Original_R_ID));
             if ((Original_R_NAME == null)) {
                 throw new global::System.ArgumentNullException("Original_R_NAME");
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((string)(Original_R_NAME));
+            }
+            if ((Original_R_TITLE == null)) {
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((string)(Original_R_TITLE));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -11282,13 +11404,19 @@ WHERE        (ID = @Original_ID) AND (""DATE"" = @Original_DATE) AND (@IsNull_IN
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(long R_ID, string R_NAME) {
+        public virtual int Insert(long R_ID, string R_NAME, string R_TITLE) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((long)(R_ID));
             if ((R_NAME == null)) {
                 throw new global::System.ArgumentNullException("R_NAME");
             }
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((string)(R_NAME));
+            }
+            if ((R_TITLE == null)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(R_TITLE));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -11310,7 +11438,7 @@ WHERE        (ID = @Original_ID) AND (""DATE"" = @Original_DATE) AND (@IsNull_IN
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(long R_ID, string R_NAME, long Original_R_ID, string Original_R_NAME) {
+        public virtual int Update(long R_ID, string R_NAME, string R_TITLE, long Original_R_ID, string Original_R_NAME, string Original_R_TITLE) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((long)(R_ID));
             if ((R_NAME == null)) {
                 throw new global::System.ArgumentNullException("R_NAME");
@@ -11318,12 +11446,26 @@ WHERE        (ID = @Original_ID) AND (""DATE"" = @Original_DATE) AND (@IsNull_IN
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(R_NAME));
             }
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((long)(Original_R_ID));
+            if ((R_TITLE == null)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(R_TITLE));
+            }
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((long)(Original_R_ID));
             if ((Original_R_NAME == null)) {
                 throw new global::System.ArgumentNullException("Original_R_NAME");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Original_R_NAME));
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Original_R_NAME));
+            }
+            if ((Original_R_TITLE == null)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Original_R_TITLE));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -11345,8 +11487,8 @@ WHERE        (ID = @Original_ID) AND (""DATE"" = @Original_DATE) AND (@IsNull_IN
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string R_NAME, long Original_R_ID, string Original_R_NAME) {
-            return this.Update(Original_R_ID, R_NAME, Original_R_ID, Original_R_NAME);
+        public virtual int Update(string R_NAME, string R_TITLE, long Original_R_ID, string Original_R_NAME, string Original_R_TITLE) {
+            return this.Update(Original_R_ID, R_NAME, R_TITLE, Original_R_ID, Original_R_NAME, Original_R_TITLE);
         }
     }
     
@@ -11601,7 +11743,7 @@ WHERE        (ID = @Original_ID) AND (""DATE"" = @Original_DATE) AND (@IsNull_IN
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::FirebirdSql.Data.FirebirdClient.FbCommand[3];
+            this._commandCollection = new global::FirebirdSql.Data.FirebirdClient.FbCommand[4];
             this._commandCollection[0] = new global::FirebirdSql.Data.FirebirdClient.FbCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT \"U_ID\", \"U_NAME\", \"U_ROLE\" FROM \"M_USERS\"";
@@ -11620,7 +11762,8 @@ WHERE        (ID = @Original_ID) AND (""DATE"" = @Original_DATE) AND (@IsNull_IN
             this._commandCollection[1].Parameters.Add(param);
             this._commandCollection[2] = new global::FirebirdSql.Data.FirebirdClient.FbCommand();
             this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "INSERT INTO \"M_USERS\" (\"U_NAME\", \"U_ROLE\") VALUES (@U_NAME, @U_ROLE)";
+            this._commandCollection[2].CommandText = "SELECT        U_ID, U_NAME, U_ROLE\r\nFROM            M_USERS\r\nWHERE        (U_NAME" +
+                " = @U_NAME)";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             param = new global::FirebirdSql.Data.FirebirdClient.FbParameter();
             param.ParameterName = "@U_NAME";
@@ -11628,13 +11771,23 @@ WHERE        (ID = @Original_ID) AND (""DATE"" = @Original_DATE) AND (@IsNull_IN
             param.IsNullable = true;
             param.SourceColumn = "U_NAME";
             this._commandCollection[2].Parameters.Add(param);
+            this._commandCollection[3] = new global::FirebirdSql.Data.FirebirdClient.FbCommand();
+            this._commandCollection[3].Connection = this.Connection;
+            this._commandCollection[3].CommandText = "INSERT INTO \"M_USERS\" (\"U_NAME\", \"U_ROLE\") VALUES (@U_NAME, @U_ROLE)";
+            this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
+            param = new global::FirebirdSql.Data.FirebirdClient.FbParameter();
+            param.ParameterName = "@U_NAME";
+            param.Size = 1000;
+            param.IsNullable = true;
+            param.SourceColumn = "U_NAME";
+            this._commandCollection[3].Parameters.Add(param);
             param = new global::FirebirdSql.Data.FirebirdClient.FbParameter();
             param.ParameterName = "@U_ROLE";
             param.DbType = global::System.Data.DbType.Int32;
             param.Size = 8;
             param.IsNullable = true;
             param.SourceColumn = "U_ROLE";
-            this._commandCollection[2].Parameters.Add(param);
+            this._commandCollection[3].Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11656,6 +11809,23 @@ WHERE        (ID = @Original_ID) AND (""DATE"" = @Original_DATE) AND (@IsNull_IN
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual MusDataSet.M_USERSDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            MusDataSet.M_USERSDataTable dataTable = new MusDataSet.M_USERSDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual MusDataSet.M_USERSDataTable GetDataByName(string U_NAME) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            if ((U_NAME == null)) {
+                throw new global::System.ArgumentNullException("U_NAME");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(U_NAME));
+            }
             MusDataSet.M_USERSDataTable dataTable = new MusDataSet.M_USERSDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -11865,7 +12035,7 @@ WHERE        (ID = @Original_ID) AND (""DATE"" = @Original_DATE) AND (@IsNull_IN
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, false)]
         public virtual int InsertQuery(string U_NAME, global::System.Nullable<int> U_ROLE) {
-            global::FirebirdSql.Data.FirebirdClient.FbCommand command = this.CommandCollection[2];
+            global::FirebirdSql.Data.FirebirdClient.FbCommand command = this.CommandCollection[3];
             if ((U_NAME == null)) {
                 throw new global::System.ArgumentNullException("U_NAME");
             }

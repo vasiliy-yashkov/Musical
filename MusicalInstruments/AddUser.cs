@@ -15,6 +15,7 @@ namespace MusicalInstruments
         private string user;
         private string password;
         private int role;
+        private string roleName;
 
         public string User
         {
@@ -55,6 +56,19 @@ namespace MusicalInstruments
             }
         }
 
+        public string RoleName
+        {
+            get
+            {
+                return roleName;
+            }
+
+            set
+            {
+                roleName = value;
+            }
+        }
+
         public AddUser ()
         {
             InitializeComponent();
@@ -65,6 +79,9 @@ namespace MusicalInstruments
             this.user = txtLogin.Text;
             this.password = txtPassword.Text;
             this.role = (int)((Int64)comboBox1.SelectedValue);
+            MusDataSet.M_ROLESDataTable roles = this.m_ROLESTableAdapter.GetDataByID(this.role);
+            MusDataSet.M_ROLESRow row = (MusDataSet.M_ROLESRow)roles.Rows[0];
+            this.RoleName = row.R_NAME;
         }
 
         private void btnCancel_Click (object sender, EventArgs e)

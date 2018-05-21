@@ -37,11 +37,11 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.musDataSet = new MusicalInstruments.MusDataSet();
             this.mROLESBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.musDataSet = new MusicalInstruments.MusDataSet();
             this.m_ROLESTableAdapter = new MusicalInstruments.MusDataSetTableAdapters.M_ROLESTableAdapter();
-            ((System.ComponentModel.ISupportInitialize)(this.musDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mROLESBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.musDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -111,7 +111,7 @@
             // comboBox1
             // 
             this.comboBox1.DataSource = this.mROLESBindingSource;
-            this.comboBox1.DisplayMember = "R_NAME";
+            this.comboBox1.DisplayMember = "R_TITLE";
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(124, 64);
@@ -120,15 +120,15 @@
             this.comboBox1.TabIndex = 9;
             this.comboBox1.ValueMember = "R_ID";
             // 
-            // musDataSet
-            // 
-            this.musDataSet.DataSetName = "MusDataSet";
-            this.musDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // mROLESBindingSource
             // 
             this.mROLESBindingSource.DataMember = "M_ROLES";
             this.mROLESBindingSource.DataSource = this.musDataSet;
+            // 
+            // musDataSet
+            // 
+            this.musDataSet.DataSetName = "MusDataSet";
+            this.musDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // m_ROLESTableAdapter
             // 
@@ -154,8 +154,8 @@
             this.Name = "AddUser";
             this.Text = "Добавить пользователя";
             this.Load += new System.EventHandler(this.AddUser_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.musDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mROLESBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.musDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

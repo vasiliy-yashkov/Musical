@@ -18,6 +18,8 @@ namespace MusicalInstruments
     public partial class MainForm : Form
     {
         private User user;
+        private MusDataSetTableAdapters.M_USERSTableAdapter usersAdapter;
+        private MusDataSetTableAdapters.M_ROLESTableAdapter rolesAdapter;
 
         public MainForm(string login, string password)
         {
@@ -28,19 +30,33 @@ namespace MusicalInstruments
             var connectionStringsSection = (ConnectionStringsSection)config.GetSection("connectionStrings");
             string appPath = Application.StartupPath;
             string dbPath = appPath + "\\db\\MUS_DB.FDB";
-            string connString = "database=" + dbPath + ";data source=localhost;user=" + login + ";password=" + password;
-            connectionStringsSection.ConnectionStrings["MusicalInstruments.Properties.Settings.ConnectionString"].ConnectionString =
-                connString;
-            config.Save();
-            ConfigurationManager.RefreshSection("connectionStrings");
+            FbConnectionStringBuilder cs = new FbConnectionStringBuilder();
+            cs.DataSource = "localhost";
+            cs.Database = dbPath;
+            cs.UserID = login;
+            cs.Password = password;
+            cs.Charset = "WIN1251";
+            cs.Pooling = false;
+            //cs.Role = "SELLER";
+
+            //connectionStringsSection.ConnectionStrings["MusicalInstruments.Properties.Settings.ConnectionString"].ConnectionString =
+            //    cs.ToString();
+            //config.Save();
+            //ConfigurationManager.RefreshSection("connectionStrings");
+
+            //connectionStringsSection.ConnectionStrings["MusicalInstruments.Properties.Settings.ConnectionString"].ConnectionString =
+            //    cs.ToString();
+            //config.Save();
+            //ConfigurationManager.RefreshSection("connectionStrings");
 
             bool onClosing = false;
 
-            FbConnection connection = new FbConnection(connString);
+            FbConnection connection = new FbConnection(cs.ToString());
             try
             {
                 connection.Open();
                 connection.Close();
+
                 connectionLabel.Text = "Статус: " + dbPath + "; Пользователь: " + login;
                 this.connectionLabel.Image = global::MusicalInstruments.Properties.Resources.ok;
                 objectsToolStripMenuItem.Enabled = true;
@@ -61,11 +77,95 @@ namespace MusicalInstruments
 
             if (onClosing)
                 Close();
+            else
+            {
 
-            user = new User();
+                var cn = new FbConnection(cs.ToString());
+                var cmd = new FbCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = @"select r_name from m_roles
+                                    join m_users on u_role = r_id
+                                    where u_name = '" + login + "'";
+                cmd.Connection = cn;
 
-            user.Login = login;
-            user.Password = password;
+                DataTable dt = GetTable(cmd);
+
+                string role = dt.Rows[0].ItemArray[0].ToString();
+
+                //usersAdapter = new MusDataSetTableAdapters.M_USERSTableAdapter();
+                //usersAdapter.ClearBeforeFill = true;
+
+                //rolesAdapter = new MusDataSetTableAdapters.M_ROLESTableAdapter();
+                //rolesAdapter.ClearBeforeFill = true;
+
+                //MusDataSet.M_USERSDataTable users = usersAdapter.GetDataByName(login);
+                //MusDataSet.M_USERSRow userRow = (MusDataSet.M_USERSRow)users.Rows[0];
+
+                //MusDataSet.M_ROLESDataTable roles = rolesAdapter.GetDataByID((int)userRow.U_ROLE);
+                //MusDataSet.M_ROLESRow roleRow = (MusDataSet.M_ROLESRow)roles.Rows[0];
+
+                user = new User();
+
+                user.Login = login;
+                user.Password = password;
+                user.Role = role;//roleRow.R_NAME;
+
+                checkAccess();
+
+                cs.Role = user.Role;
+                config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                connectionStringsSection = (ConnectionStringsSection)config.GetSection("connectionStrings");
+                connectionStringsSection.ConnectionStrings["MusicalInstruments.Properties.Settings.ConnectionString"].ConnectionString =
+    cs.ToString();
+                config.Save();
+                ConfigurationManager.RefreshSection("connectionStrings");
+
+                connection = new FbConnection(cs.ToString());
+            }
+        }
+
+        public DataTable GetTable (FbCommand cmd)
+        {
+            System.Data.ConnectionState original = cmd.Connection.State;
+            if (cmd.Connection.State == ConnectionState.Closed)
+            {
+                cmd.Connection.Open();
+            }
+
+            DataTable dt = new DataTable();
+            FbDataReader dr;
+
+            try
+            {
+                dr = cmd.ExecuteReader();
+                dt.Load(dr);
+                dr.Close();
+                dr.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Проверьте корректность введенных данных и фильтров!" + Environment.NewLine + ex.Message, "Ошибка выполнения запроса", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (cmd.Connection.State == ConnectionState.Open)
+            {
+                cmd.Connection.Close();
+            }
+
+            return dt;
+        }
+
+        private void checkAccess ()
+        {
+            if (user.Role.ToUpper().Equals("SYSADMIN") || user.Role.ToUpper().Equals("MADMIN"))
+            {
+
+            }
+            else
+            {
+                objectsToolStripMenuItem.Visible = false;
+                usersToolStripMenuItem.Visible = false;
+            }
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
