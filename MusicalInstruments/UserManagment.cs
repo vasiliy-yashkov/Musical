@@ -81,6 +81,8 @@ namespace MusicalInstruments
                 this.tableAdapterManager.UpdateAll(this.musDataSet);
                 this.Validate();
                 this.m_USERSTableAdapter.Fill(this.musDataSet.M_USERS);
+
+                MessageBox.Show("Пользователь добавлен.", "Действие завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -118,6 +120,9 @@ namespace MusicalInstruments
 
         private void deleteRow_Click (object sender, EventArgs e)
         {
+            if (MessageBox.Show("Удалить пользователя?", "Требуется подтверждение", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) ==
+                DialogResult.No)
+                return;
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             var connectionStringsSection = (ConnectionStringsSection)config.GetSection("connectionStrings");
             string conn = connectionStringsSection.ConnectionStrings["MusicalInstruments.Properties.Settings.ConnectionString"].ConnectionString;
@@ -142,6 +147,8 @@ namespace MusicalInstruments
             this.tableAdapterManager.UpdateAll(this.musDataSet);
             this.Validate();
             this.m_USERSTableAdapter.Fill(this.musDataSet.M_USERS);
+
+            MessageBox.Show("Пользователь удален.", "Действие завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
