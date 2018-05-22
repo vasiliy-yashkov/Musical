@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserManagment));
             this.m_USERSBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
+            this.m_USERSBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.musDataSet = new MusicalInstruments.MusDataSet();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
@@ -44,22 +46,20 @@
             this.deleteRowButton = new System.Windows.Forms.ToolStripButton();
             this.m_USERSBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.m_USERSDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.mROLESBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.musDataSet = new MusicalInstruments.MusDataSet();
-            this.m_USERSBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mROLESBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.m_USERSTableAdapter = new MusicalInstruments.MusDataSetTableAdapters.M_USERSTableAdapter();
             this.tableAdapterManager = new MusicalInstruments.MusDataSetTableAdapters.TableAdapterManager();
             this.m_ROLESTableAdapter = new MusicalInstruments.MusDataSetTableAdapters.M_ROLESTableAdapter();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.m_USERSBindingNavigator)).BeginInit();
             this.m_USERSBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.m_USERSBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.musDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_USERSDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mROLESBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.musDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_USERSBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mROLESBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -102,6 +102,16 @@
             this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorAddNewItem.Text = "Add new";
             this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.bindingNavigatorAddNewItem_Click);
+            // 
+            // m_USERSBindingSource
+            // 
+            this.m_USERSBindingSource.DataMember = "M_USERS";
+            this.m_USERSBindingSource.DataSource = this.musDataSet;
+            // 
+            // musDataSet
+            // 
+            this.musDataSet.DataSetName = "MusDataSet";
+            this.musDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // bindingNavigatorCountItem
             // 
@@ -203,26 +213,46 @@
             this.m_USERSDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_USERSDataGridView.Location = new System.Drawing.Point(0, 25);
             this.m_USERSDataGridView.Name = "m_USERSDataGridView";
+            this.m_USERSDataGridView.ReadOnly = true;
             this.m_USERSDataGridView.RowHeadersVisible = false;
             this.m_USERSDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.m_USERSDataGridView.Size = new System.Drawing.Size(624, 416);
             this.m_USERSDataGridView.TabIndex = 1;
             this.m_USERSDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.m_USERSDataGridView_CellClick);
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "U_ID";
+            this.dataGridViewTextBoxColumn1.HeaderText = "U_ID";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "U_NAME";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Имя пользователя";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 250;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "U_ROLE";
+            this.dataGridViewTextBoxColumn3.DataSource = this.mROLESBindingSource1;
+            this.dataGridViewTextBoxColumn3.DisplayMember = "R_TITLE";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Роль";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewTextBoxColumn3.ValueMember = "R_ID";
+            this.dataGridViewTextBoxColumn3.Width = 150;
+            // 
             // mROLESBindingSource1
             // 
             this.mROLESBindingSource1.DataMember = "M_ROLES";
             this.mROLESBindingSource1.DataSource = this.musDataSet;
-            // 
-            // musDataSet
-            // 
-            this.musDataSet.DataSetName = "MusDataSet";
-            this.musDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // m_USERSBindingSource
-            // 
-            this.m_USERSBindingSource.DataMember = "M_USERS";
-            this.m_USERSBindingSource.DataSource = this.musDataSet;
             // 
             // mROLESBindingSource
             // 
@@ -254,32 +284,6 @@
             // 
             this.m_ROLESTableAdapter.ClearBeforeFill = true;
             // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "U_ID";
-            this.dataGridViewTextBoxColumn1.HeaderText = "U_ID";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "U_NAME";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Имя пользователя";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.Width = 250;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "U_ROLE";
-            this.dataGridViewTextBoxColumn3.DataSource = this.mROLESBindingSource1;
-            this.dataGridViewTextBoxColumn3.DisplayMember = "R_TITLE";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Роль";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewTextBoxColumn3.ValueMember = "R_ID";
-            this.dataGridViewTextBoxColumn3.Width = 150;
-            // 
             // UserManagment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -293,10 +297,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.m_USERSBindingNavigator)).EndInit();
             this.m_USERSBindingNavigator.ResumeLayout(false);
             this.m_USERSBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.m_USERSBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.musDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_USERSDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mROLESBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.musDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_USERSBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mROLESBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

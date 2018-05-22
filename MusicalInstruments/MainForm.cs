@@ -37,16 +37,6 @@ namespace MusicalInstruments
             cs.Pooling = false;
             //cs.Role = "SELLER";
 
-            //connectionStringsSection.ConnectionStrings["MusicalInstruments.Properties.Settings.ConnectionString"].ConnectionString =
-            //    cs.ToString();
-            //config.Save();
-            //ConfigurationManager.RefreshSection("connectionStrings");
-
-            //connectionStringsSection.ConnectionStrings["MusicalInstruments.Properties.Settings.ConnectionString"].ConnectionString =
-            //    cs.ToString();
-            //config.Save();
-            //ConfigurationManager.RefreshSection("connectionStrings");
-
             bool onClosing = false;
 
             FbConnection connection = new FbConnection(cs.ToString());
@@ -98,7 +88,10 @@ namespace MusicalInstruments
 
                 checkAccess();
 
-                cs.Role = user.Role;
+                if (!cs.UserID.ToUpper().Equals("SYSDBA"))
+                {
+                    cs.Role = user.Role;
+                }
                 config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 connectionStringsSection = (ConnectionStringsSection)config.GetSection("connectionStrings");
                 connectionStringsSection.ConnectionStrings["MusicalInstruments.Properties.Settings.ConnectionString"].ConnectionString =

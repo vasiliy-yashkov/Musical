@@ -62,36 +62,48 @@ namespace MusicalInstruments
                 string conn = connectionStringsSection.ConnectionStrings["MusicalInstruments.Properties.Settings.ConnectionString"].ConnectionString;
                 FirebirdSql.Data.Services.FbSecurity security = new FirebirdSql.Data.Services.FbSecurity(conn);
                 FirebirdSql.Data.Services.FbUserData user = new FirebirdSql.Data.Services.FbUserData();
-                user.UserName = adduser.User;
-                user.UserPassword = adduser.Password;
-                //user.RoleName = adduser.RoleName;
-                security.AddUser(user);
 
-                FirebirdSql.Data.Services.FbUserData a = security.DisplayUser(user.UserName);
-
-                var cn = new FbConnection(conn);
-                var cmd = new FbCommand();
-                cmd.CommandType = CommandType.Text;
-                if (adduser.RoleName.ToUpper().Equals("SYSADMIN"))
+                try
                 {
-                    cmd.CommandText = @"ALTER USER " + user.UserName + " GRANT ADMIN ROLE";
-                    adduser.RoleName = "RDB$ADMIN";
+                    user.UserName = adduser.User;
+                    user.UserPassword = adduser.Password;
+                    //user.RoleName = adduser.RoleName;
+                                        
+                    var cn = new FbConnection(conn);
+                    var cmd = new FbCommand();
+                    cmd.CommandType = CommandType.Text;                
+                    cmd.Connection = cn;
+                    if (adduser.RoleName.ToUpper().Equals("RDB$ADMIN"))
+                    {
+                        cmd.CommandText = @"CREATE USER " + user.UserName + " PASSWORD '" + user.UserPassword + "' GRANT ADMIN ROLE";
+                        adduser.RoleName = "RDB$ADMIN";
+                        execute(cmd);
+                    }
+                    else
+                    {
+                        //security.AddUser(user);
+                        //cmd.CommandText = @"grant " + adduser.RoleName + " to " + user.UserName;
+                        cmd.CommandText = @"CREATE USER " + user.UserName + " PASSWORD '" + user.UserPassword + "'";
+                        execute(cmd);
+                        cmd.CommandText = @"grant " + adduser.RoleName + " to " + user.UserName;
+                        execute(cmd);
+                    }
+                                       
+
+                    int i = m_USERSTableAdapter.InsertQuery(adduser.User, adduser.Role);
+                    this.tableAdapterManager.UpdateAll(this.musDataSet);
+                    this.Validate();
+                    this.m_USERSTableAdapter.Fill(this.musDataSet.M_USERS);
+
+                    MessageBox.Show("Пользователь добавлен.", "Действие завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else
+                catch (Exception ex)
                 {
-                    cmd.CommandText = @"grant " + adduser.RoleName + " to " + user.UserName;
+                    MessageBoxWithDetails message = new MessageBoxWithDetails("Ошибка при добавлении пользователя!",
+                        "Ошибка", ex.Message);
+                    message.ShowDialog();
                 }
 
-                cmd.Connection = cn;
-
-                execute(cmd);
-
-                int i = m_USERSTableAdapter.InsertQuery(adduser.User, adduser.Role);
-                this.tableAdapterManager.UpdateAll(this.musDataSet);
-                this.Validate();
-                this.m_USERSTableAdapter.Fill(this.musDataSet.M_USERS);
-
-                MessageBox.Show("Пользователь добавлен.", "Действие завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -138,11 +150,33 @@ namespace MusicalInstruments
             FirebirdSql.Data.Services.FbSecurity security = new FirebirdSql.Data.Services.FbSecurity(conn);
             FirebirdSql.Data.Services.FbUserData user = new FirebirdSql.Data.Services.FbUserData();
             if (currentRow == -1 || m_USERSDataGridView.Rows[currentRow].Cells[1].Value.ToString().Equals("SYSDBA"))
-                return;
+            {
+                if (currentRow == -1)
+                {
+                    MessageBox.Show("Выберите пользователя для удаления.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                else if (m_USERSDataGridView.Rows[currentRow].Cells[1].Value.ToString().Equals("SYSDBA"))
+                {
+                    MessageBox.Show("Невозможно удалить пользователя SYSDBA.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                
+            }
             user.UserName = m_USERSDataGridView.Rows[currentRow].Cells[1].Value.ToString();
             try
             {
                 security.DeleteUser(user);
+
+                m_USERSTableAdapter.DeleteQuery((int)((Int64)m_USERSDataGridView.Rows[currentRow].Cells[0].Value));
+
+                this.tableAdapterManager.UpdateAll(this.musDataSet);
+                this.Validate();
+                this.m_USERSTableAdapter.Fill(this.musDataSet.M_USERS);
+
+                MessageBox.Show("Пользователь удален.", "Действие завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                currentRow = 0;
             }
             catch (Exception ex)
             {
@@ -150,14 +184,6 @@ namespace MusicalInstruments
                     "Ошибка", ex.Message);
                 message.ShowDialog();
             }
-
-            m_USERSTableAdapter.DeleteQuery((int)((Int64)m_USERSDataGridView.Rows[currentRow].Cells[0].Value));
-
-            this.tableAdapterManager.UpdateAll(this.musDataSet);
-            this.Validate();
-            this.m_USERSTableAdapter.Fill(this.musDataSet.M_USERS);
-
-            MessageBox.Show("Пользователь удален.", "Действие завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
