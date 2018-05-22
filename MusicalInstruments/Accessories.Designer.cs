@@ -47,7 +47,7 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.m_ACCESSORIESBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
-            this.m_ACCESSORIESDataGridView = new System.Windows.Forms.DataGridView();
+            this.m_ACCESSORIESDataGridView = new DataGridViewExtended.DataGridViewExtended();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();

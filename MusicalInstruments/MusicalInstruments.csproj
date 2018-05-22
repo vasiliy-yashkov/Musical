@@ -318,6 +318,12 @@
   <ItemGroup>
     <None Include="resources\ok.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataGridViewExtended\DataGridViewExtended.csproj">
+      <Project>{e7b9280e-d919-4e16-87a3-8a3d2e08f32b}</Project>
+      <Name>DataGridViewExtended</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">

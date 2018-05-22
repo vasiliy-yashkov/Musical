@@ -26,8 +26,8 @@ namespace MusicalInstruments.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("character set=NONE;data source=127.0.0.1;initial catalog=D:\\Sources\\Musical\\music" +
-            "alinstruments\\bin\\Debug\\db\\MUS_DB.FDB;user id=SYSDBA;Password=masterkey")]
+        [global::System.Configuration.DefaultSettingValueAttribute("character set=NONE;data source=127.0.0.1;initial catalog=E:\\source\\Musical\\musica" +
+            "linstruments\\bin\\Debug\\db\\MUS_DB.FDB;user id=SYSDBA;Password=masterkey")]
         public string ConnectionString {
             get {
                 return ((string)(this["ConnectionString"]));

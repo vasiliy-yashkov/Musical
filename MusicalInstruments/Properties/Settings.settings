@@ -5,10 +5,10 @@
     <Setting Name="ConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;character set=NONE;data source=127.0.0.1;initial catalog=D:\Sources\Musical\musicalinstruments\bin\Debug\db\MUS_DB.FDB;user id=SYSDBA;Password=masterkey&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;character set=NONE;data source=127.0.0.1;initial catalog=E:\source\Musical\musicalinstruments\bin\Debug\db\MUS_DB.FDB;user id=SYSDBA;Password=masterkey&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;FirebirdSql.Data.FirebirdClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">character set=NONE;data source=127.0.0.1;initial catalog=D:\Sources\Musical\musicalinstruments\bin\Debug\db\MUS_DB.FDB;user id=SYSDBA;Password=masterkey</Value>
+      <Value Profile="(Default)">character set=NONE;data source=127.0.0.1;initial catalog=E:\source\Musical\musicalinstruments\bin\Debug\db\MUS_DB.FDB;user id=SYSDBA;Password=masterkey</Value>
     </Setting>
   </Settings>
 </SettingsFile>
