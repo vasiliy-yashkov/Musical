@@ -43,7 +43,7 @@
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.m_SELLERBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
-            this.m_SELLERDataGridView = new System.Windows.Forms.DataGridView();
+            this.m_SELLERDataGridView = new DataGridViewExtended.DataGridViewExtended();
             this.m_SELLERBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.musDataSet = new MusicalInstruments.MusDataSet();
             this.m_SELLERTableAdapter = new MusicalInstruments.MusDataSetTableAdapters.M_SELLERTableAdapter();

@@ -18,8 +18,6 @@ namespace MusicalInstruments
     public partial class MainForm : Form
     {
         private User user;
-        private MusDataSetTableAdapters.M_USERSTableAdapter usersAdapter;
-        private MusDataSetTableAdapters.M_ROLESTableAdapter rolesAdapter;
 
         public MainForm(string login, string password)
         {
@@ -119,8 +117,6 @@ namespace MusicalInstruments
     cs.ToString();
                 config.Save();
                 ConfigurationManager.RefreshSection("connectionStrings");
-
-                connection = new FbConnection(cs.ToString());
             }
         }
 

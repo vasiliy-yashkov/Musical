@@ -67,7 +67,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.m_ACCESSORIESTableAdapter = new MusicalInstruments.MusDataSetTableAdapters.M_ACCESSORIESTableAdapter();
             this.tableAdapterManager = new MusicalInstruments.MusDataSetTableAdapters.TableAdapterManager();
-            this.selectedDataGrid = new System.Windows.Forms.DataGridView();
+            this.selectedDataGrid = new DataGridViewExtended.DataGridViewExtended();
             this.AccName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AccPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AccCount = new System.Windows.Forms.DataGridViewTextBoxColumn();

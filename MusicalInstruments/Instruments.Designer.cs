@@ -45,7 +45,7 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.m_INSTRUMENTBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
-            this.m_INSTRUMENTDataGridView = new System.Windows.Forms.DataGridView();
+            this.m_INSTRUMENTDataGridView = new DataGridViewExtended.DataGridViewExtended();
             this.mMARKBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mTYPEBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.m_INSTRUMENTTableAdapter = new MusicalInstruments.MusDataSetTableAdapters.M_INSTRUMENTTableAdapter();
