@@ -12,9 +12,22 @@ namespace MusicalInstruments
 {
     public partial class AvailableInst : Form
     {
-        public AvailableInst()
+        private User user;
+
+        public AvailableInst(User user)
         {
             InitializeComponent();
+
+            if (!user.Role.ToUpper().Equals("RDB$ADMIN") && !user.Role.ToUpper().Equals("MADMIN"))
+            {
+                m_STORAGEDataGridView.ReadOnly = true;
+                m_STORAGEDataGridView.AllowUserToAddRows = false;
+                m_STORAGEDataGridView.AllowUserToDeleteRows = false;
+                m_STORAGEDataGridView.AllowDrop = false;
+                bindingNavigatorAddNewItem.Enabled = false;
+                bindingNavigatorDeleteItem.Enabled = false;
+                m_STORAGEBindingNavigatorSaveItem.Enabled = false;
+            }
         }
 
         private void m_STORAGEBindingNavigatorSaveItem_Click(object sender, EventArgs e)

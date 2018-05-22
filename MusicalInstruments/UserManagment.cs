@@ -45,10 +45,10 @@ namespace MusicalInstruments
             string conn = connectionStringsSection.ConnectionStrings["MusicalInstruments.Properties.Settings.ConnectionString"].ConnectionString;
             FirebirdSql.Data.Services.FbSecurity security = new FirebirdSql.Data.Services.FbSecurity(conn);
             FirebirdSql.Data.Services.FbUserData user = new FirebirdSql.Data.Services.FbUserData();
-            if ( currentRow == -1)
+            if (currentRow == -1)
                 return;
             user.UserName = m_USERSDataGridView.Rows[currentRow].Cells[1].Value.ToString();
-          
+
             m_USERSBindingNavigatorSaveItem_Click(null, null);
         }
 
@@ -72,7 +72,16 @@ namespace MusicalInstruments
                 var cn = new FbConnection(conn);
                 var cmd = new FbCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = @"grant " + adduser.RoleName + " to " + user.UserName;
+                if (adduser.RoleName.ToUpper().Equals("SYSADMIN"))
+                {
+                    cmd.CommandText = @"ALTER USER " + user.UserName + " GRANT ADMIN ROLE";
+                    adduser.RoleName = "RDB$ADMIN";
+                }
+                else
+                {
+                    cmd.CommandText = @"grant " + adduser.RoleName + " to " + user.UserName;
+                }
+
                 cmd.Connection = cn;
 
                 execute(cmd);

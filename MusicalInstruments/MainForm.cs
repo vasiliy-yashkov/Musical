@@ -90,18 +90,6 @@ namespace MusicalInstruments
 
                 string role = dt.Rows[0].ItemArray[0].ToString();
 
-                //usersAdapter = new MusDataSetTableAdapters.M_USERSTableAdapter();
-                //usersAdapter.ClearBeforeFill = true;
-
-                //rolesAdapter = new MusDataSetTableAdapters.M_ROLESTableAdapter();
-                //rolesAdapter.ClearBeforeFill = true;
-
-                //MusDataSet.M_USERSDataTable users = usersAdapter.GetDataByName(login);
-                //MusDataSet.M_USERSRow userRow = (MusDataSet.M_USERSRow)users.Rows[0];
-
-                //MusDataSet.M_ROLESDataTable roles = rolesAdapter.GetDataByID((int)userRow.U_ROLE);
-                //MusDataSet.M_ROLESRow roleRow = (MusDataSet.M_ROLESRow)roles.Rows[0];
-
                 user = new User();
 
                 user.Login = login;
@@ -153,12 +141,16 @@ namespace MusicalInstruments
 
         private void checkAccess ()
         {
-            if (user.Role.ToUpper().Equals("SYSADMIN") || user.Role.ToUpper().Equals("MADMIN"))
+            if (user.Role.ToUpper().Equals("RDB$ADMIN") || user.Role.ToUpper().Equals("MADMIN"))
             {
-
+                if (user.Role.ToUpper().Equals("MADMIN"))
+                {
+                    usersToolStripMenuItem.Visible = false;
+                }
             }
             else
             {
+                deliveriesToolStripMenuItem.Visible = false;
                 objectsToolStripMenuItem.Visible = false;
                 usersToolStripMenuItem.Visible = false;
             }
@@ -261,7 +253,7 @@ namespace MusicalInstruments
 
         private void availableInstrumentsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AvailableInst avInst = new AvailableInst();
+            AvailableInst avInst = new AvailableInst(user);
             foreach (Form form in this.MdiChildren)
             {
                 if (form.GetType() == typeof(AvailableInst))

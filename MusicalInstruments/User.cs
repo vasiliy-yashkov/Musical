@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MusicalInstruments
 {
-    class User
+    public class User
     {
         private string login;
         private string password;
