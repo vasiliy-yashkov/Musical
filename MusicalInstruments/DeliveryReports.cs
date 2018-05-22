@@ -15,21 +15,25 @@ namespace MusicalInstruments
 {
     public partial class DeliveryReports : Form
     {
-        public DeliveryReports()
+        public DeliveryReports(User user)
         {
             InitializeComponent();
 
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             var connectionStringsSection = (ConnectionStringsSection)config.GetSection("connectionStrings");
             string appPath = Application.StartupPath;
-            string user = "SYSDBA";
-            string password = "masterkey";
             string dbPath = appPath + "\\db\\MUS_DB.FDB";
-            string connection =
-                "database=" + dbPath + ";data source=localhost;user=" + user + ";password=" + password;
 
+            FbConnectionStringBuilder cs = new FbConnectionStringBuilder();
+            cs.DataSource = "localhost";
+            cs.Database = dbPath;
+            cs.UserID = user.Login;
+            cs.Password = user.Password;
+            cs.Charset = "WIN1251";
+            cs.Pooling = false;
+            cs.Role = user.Role;
 
-            var cn = new FbConnection(connection);
+            var cn = new FbConnection(cs.ToString());
             var cmd = new FbCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = @"select 
@@ -60,7 +64,7 @@ namespace MusicalInstruments
 
             this.rdlViewer1.Report.DataSets["Data"].SetData(dt);
             this.rdlViewer1.Report.DataSets["Data"].SetSource(cmd.CommandText);
-            this.rdlViewer1.Parameters += string.Format("ConnectionString={0}", connection);
+            this.rdlViewer1.Parameters += string.Format("ConnectionString={0}", cs.ToString());
 
             this.rdlViewer1.Rebuild();
         }

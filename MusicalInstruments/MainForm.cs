@@ -241,13 +241,13 @@ namespace MusicalInstruments
 
         private void deliveryReportsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DeliveryReports delReports = new DeliveryReports();
+            DeliveryReports delReports = new DeliveryReports(user);
             delReports.ShowDialog();
         }
 
         private void saleReportsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaleReports salReports = new SaleReports();
+            SaleReports salReports = new SaleReports(user);
             salReports.ShowDialog();
         }
 
