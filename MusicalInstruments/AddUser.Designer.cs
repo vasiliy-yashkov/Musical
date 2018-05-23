@@ -59,6 +59,8 @@
             this.txtLogin.Name = "txtLogin";
             this.txtLogin.Size = new System.Drawing.Size(334, 20);
             this.txtLogin.TabIndex = 1;
+            this.txtLogin.TextChanged += new System.EventHandler(this.txtLogin_TextChanged);
+            this.txtLogin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtLogin_KeyPress);
             // 
             // label2
             // 

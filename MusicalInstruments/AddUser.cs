@@ -17,6 +17,8 @@ namespace MusicalInstruments
         private int role;
         private string roleName;
 
+        private string oldText;
+
         public string User
         {
             get
@@ -94,6 +96,27 @@ namespace MusicalInstruments
             // TODO: This line of code loads data into the 'musDataSet.M_ROLES' table. You can move, or remove it, as needed.
             this.m_ROLESTableAdapter.Fill(this.musDataSet.M_ROLES);
 
+        }
+
+        private void txtLogin_KeyPress (object sender, KeyPressEventArgs e)
+        {
+            oldText = txtLogin.Text;
+            if (System.Text.Encoding.UTF8.GetByteCount(new char[] { e.KeyChar }) > 1)
+            {
+                e.Handled = true;
+            }
+            else if (char.IsSeparator(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtLogin_TextChanged (object sender, EventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtLogin.Text, @"^[a-zA-Z0-9\\_\\.]+$"))
+            {
+                txtLogin.Text = oldText;
+            }
         }
     }
 }

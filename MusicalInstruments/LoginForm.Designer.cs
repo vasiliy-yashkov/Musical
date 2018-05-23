@@ -54,6 +54,8 @@
             this.txtLogin.Size = new System.Drawing.Size(398, 20);
             this.txtLogin.TabIndex = 1;
             this.txtLogin.Text = "SYSDBA";
+            this.txtLogin.TextChanged += new System.EventHandler(this.txtLogin_TextChanged);
+            this.txtLogin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtLogin_KeyPress);
             // 
             // label2
             // 
